@@ -81,7 +81,7 @@ let customer: Customer = {
 };
 console.log(customer.name);
 
-//Type assertions
+//Type assertion
 //type one -  as-syntax
 let someValue: unknown = 'this isa some value';
 let strLength: number = (someValue as string).length;
