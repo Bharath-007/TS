@@ -10,4 +10,5 @@
  - Typescript arrays
  - Difference between Array<> and [ ]
  - Null checking in type script
+ 
 [DOCS LINK](https://docs.google.com/document/d/1MopRqTt2ih2p2UUkW2nuPTHV_hOD9W84k8YueiUw_58/edit?usp=sharing)
