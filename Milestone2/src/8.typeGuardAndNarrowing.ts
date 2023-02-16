@@ -96,8 +96,7 @@ shoe1 and shoe2 are different the instance of typeguard compares the both comstr
 
 //in guard
 console.log(`In typeguard`);
-
-// example 1F
+// example 1
 const House = {
     name: 'test',
     house: {
@@ -113,8 +112,8 @@ interface People {
 class Adult implements People {
     name: string;
     age: number;
-    vote:boolean;
-    constructor(name: string, age: number,vote:boolean) {
+    vote: boolean;
+    constructor(name: string, age: number, vote: boolean) {
         this.name = name;
         this.age = age;
         this.vote = vote;
@@ -123,32 +122,31 @@ class Adult implements People {
 class Child implements People {
     name: string;
     age: number;
-    vote:boolean;
-    constructor(name: string, age: number,vote:boolean) {
+    vote: boolean;
+    constructor(name: string, age: number, vote: boolean) {
         this.name = name;
         this.age = age;
         this.vote = vote;
     }
 }
-const canVote = (vote:boolean) => {
+const canVote = (vote: boolean) => {
     console.log(`can vote ${vote}`);
-    
 }
-const cantVote = (vote:boolean) => {
+const cantVote = (vote: boolean) => {
     console.log(`can't vote ${vote}`);
-    
 }
-const getIndentity = (person:People) => {
-    if('vote' in person){
+const getIndentity = (person: People) => {
+    if ('vote' in person) {
         canVote((person as Adult).vote);
-    }else if('vote' in person){
+    } else if ('vote' in person) {
         cantVote((person as Child).vote);
-    }else{
+    } else {
         console.log('no vote');
     }
 }
-getIndentity(new Child('Arun',15,false));
-getIndentity(new Adult('Shiv',18,true));
+getIndentity(new Child('Arun', 15, false));
+getIndentity(new Adult('Shiv', 18, true));
+
 /*
     the above program has two classes Child and Adult both implements People interface
     the getIndentity method reurns either Child or Adult object
@@ -157,37 +155,38 @@ getIndentity(new Adult('Shiv',18,true));
 */
 
 //equality narrowing
-const getValues = (a:number | string,b:string) =>{
-    if(a===b){
+const getValues = (a: number | string, b: string) => {
+    if (a === b) {
         //here the narrowing takes place
         console.log(`narrowed ${typeof a}`);//string
-    }else{
+    } else {
         //no narrowing remines unknown
         console.log(`no norrowing ${typeof a}`);//number
     }
 }
-getValues(1,'332');
-getValues('hello','world');
-getValues('hello','hello');
+getValues(1, '332');
+getValues(1, '1');
+getValues('hello', 'world');
+getValues('hello', 'hello');
 
 //custom type guard 
-interface Bird{
-    name:string;
-    feathersColor:string;
+interface Bird {
+    name: string;
+    feathersColor: string;
 }
-interface Fish{
-    name:string;
-    finsColor:string;
+interface Fish {
+    name: string;
+    finsColor: string;
 }
 type Animal = Bird | Fish;
 
 //custom type guard
-const isBird = (animal:Animal): animal is Bird => {
+const isBird = (animal: Animal): animal is Bird => {
     return (animal as Bird).feathersColor !== undefined;
 }
 
-const parrot :Animal = {name: "Parrot", feathersColor:"orange"}
-const shark :Animal = {name: "Shark", finsColor:"black"}
+const parrot: Animal = { name: "Parrot", feathersColor: "orange" }
+const shark: Animal = { name: "Shark", finsColor: "black" }
 
 console.log(isBird(parrot));//true
 console.log(isBird(shark));//false

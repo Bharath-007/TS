@@ -83,7 +83,7 @@ type stringID = ExtractId<StringID>;//stringID = string
 type OnlyUser = { [key: string]: string | number }
 
 const typeOnlyUser: OnlyUser = {
-    name: 'bhaarth'
+    name: 'bhaarth' //it accepts string and number
 }
 
 //mapped type in generic - it uses union property
@@ -118,5 +118,3 @@ class Person {
 
 const p = new Person('Bharath');
 console.log(p.greet('Welcome '));
-
-
