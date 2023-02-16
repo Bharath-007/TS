@@ -8,8 +8,16 @@ console.log(toArray("a","b","c"));//it returns it as an array
 
 //Generic
 const identity = <T>(arg: T): T=>{
-    return arg;
+    if(typeof arg === "string"){
+        return arg;
+    }
+    return <T>"not a string";
+    
 } 
+
+ 
+
+
 console.log(identity("a"));
 console.log(identity(123));
 console.log(identity(true));
