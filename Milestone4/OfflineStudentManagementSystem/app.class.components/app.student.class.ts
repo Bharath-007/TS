@@ -4,7 +4,7 @@ import { IStudentDetails } from '../app.interface.components/app.studentDetails.
 
 export class Student {
     static students: IStudent[] = [];
-    static student(staff: IStudent) {//static allows us to use fields and methods without creating instace of class
+    static student(staff: IStudent) {
         return this.students.push({
             name: staff.name,
             id: staff.id,
@@ -20,17 +20,16 @@ export class Student {
                 student.detail = details;
         })
     }
-    static updateStudent(updateDetails:IStudentDetails,rollNo:number){
-        this.students.map((student)=>{
-            if(student.rollNo === rollNo)
+    static updateStudent(updateDetails: IStudentDetails, rollNo: number) {
+        this.students.map((student) => {
+            if (student.rollNo === rollNo)
                 student.detail = updateDetails
         })
     }
-    length(): number {
-        return Student.students.length;
-    }
-    getData(): Object[] {
-        return Student.students;
+    getData() {
+        Student.students.forEach((student) => {
+            console.log(`\tStudent Name : ${student.name.toUpperCase()}\tRoll No : ${student.rollNo}`);
+        });
     }
 
 }

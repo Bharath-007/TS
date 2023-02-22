@@ -8,7 +8,16 @@ export const viewStudentByID = async () => {
     if (result.length === 0) {
         console.log('No user found with the ID');
     } else {
-        console.log(result);
+        result.forEach((idDetails)=>{
+            console.log(`
+                Name\t:\t${idDetails.name}
+                ID\t:\t${idDetails.id}
+                Roll No\t:\t${idDetails.rollNo}
+                DOB\t:\t${idDetails.dob}
+                Details\t:\t${idDetails.detail??'NA'}
+                `);
+        })
+        // console.log(result);
         menuDriven();
     }
 }
