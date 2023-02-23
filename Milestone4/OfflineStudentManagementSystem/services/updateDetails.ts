@@ -1,8 +1,8 @@
 import { menuDriven } from "../app";
-import { Student } from "../app.class.components/app.student.class";
-import { Teacher } from "../app.class.components/app.teacher.class";
-import { calculateGrade, checkIsExist } from "./app.addStudentDetails";
-import { questionAsync } from "./app.staffRegister"
+import { Student } from "../factoryComponents/student";
+import { Teacher } from '../factoryComponents/teacher';
+import { calculateGrade, checkIsExist } from "./addStudentDetails";
+import { questionAsync } from "./staffRegister"
 
 export const updateStudentDetails = async () => {
     try {
@@ -15,7 +15,7 @@ export const updateStudentDetails = async () => {
                 const mark3 = Number(await questionAsync('Enter mark 3 : '));
                 const total = mark1 + mark2 + mark3;
                 const grade: string = calculateGrade(total);
-                 const studentDetails = {
+                const studentDetails = {
                     mark1,
                     mark2,
                     mark3,
@@ -29,7 +29,7 @@ export const updateStudentDetails = async () => {
                 console.log('No Student with the roll no');
                 updateStudentDetails();
             }
-        }else{
+        } else {
             console.log('Only staff can update the details');
             return menuDriven();
         }

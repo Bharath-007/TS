@@ -1,6 +1,6 @@
 import { menuDriven } from "./app";
-import { Student } from "./app.class.components/app.student.class";
-import { questionAsync } from "./app.menudriven.components/app.staffRegister";
+import { Student } from "./factoryComponents/student";
+import { questionAsync } from "./services/staffRegister";
 
 export const addStudent = async () => {
     try {

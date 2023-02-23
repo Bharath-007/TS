@@ -1,15 +1,15 @@
-import { CreatorFactory } from "./app.factory.components/app.creator.factory";
-import { staffLogin } from "./app.menudriven.components/app.staffRegister";
+import { CreatorFactory } from "./factoryComponents/creatorFactory";
+import { staffLogin } from "./services/staffRegister";
 import * as readline from 'readline';
-import { addStudent } from './app.menudriven.components/app.addStudent'
-import { addStudentDetails } from "./app.menudriven.components/app.addStudentDetails";
+import { addStudent } from './services/addStudent'
+import { addStudentDetails } from "./services/addStudentDetails";
 import { Teacher } from "./app.class.components/app.teacher.class";
-import { Student } from "./app.class.components/app.student.class";
-import { User } from "./app.enum.components/app.user.enum";
-import { viewStudentByID } from "./app.menudriven.components/app.viewStudentByID";
-import { deleteByID } from "./app.menudriven.components/app.deleteByID";
-import { updateStudentDetails } from "./app.menudriven.components/app.updateDetails";
-import { studentLogin } from "./app.menudriven.components/app.studentLogin";
+import { Student } from "./factoryComponents/student";
+import { User } from "./enum/app.user.enum";
+import { viewStudentByID } from "./services/viewStudentByID";
+import { deleteByID } from "./services/deleteByID";
+import { updateStudentDetails } from "./services/updateDetails";
+import { studentLogin } from "./services/studentLogin";
 
 export const readLine = readline.createInterface({
     input: process.stdin,

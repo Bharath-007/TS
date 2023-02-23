@@ -1,6 +1,5 @@
-import { IStudent } from '../app.interface.components/app.student.interface'
-import { ITeacher } from '../app.interface.components/app.teacher.interface'
-import { IStudentDetails } from '../app.interface.components/app.studentDetails.interface';
+import { IStudent } from '../interfaces/studentInterface'
+import { IStudentDetails } from '../interfaces/studentDetailsInterface';
 
 export class Student {
     static students: IStudent[] = [];

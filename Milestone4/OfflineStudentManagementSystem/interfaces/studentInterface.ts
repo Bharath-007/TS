@@ -1,5 +1,5 @@
-import { IStudentDetails } from './app.studentDetails.interface';
-import {IUser} from './app.user.interface'
+import { IStudentDetails } from './studentDetailsInterface';
+import {IUser} from './userInterface'
 
 export interface IStudent extends IUser{
     rollNo:number;

@@ -1,4 +1,4 @@
-import { ITeacher } from '../app.interface.components/app.teacher.interface'
+import { ITeacher } from '../interfaces/teacherInterface'
 
 export class Teacher {
     static isActive = false;

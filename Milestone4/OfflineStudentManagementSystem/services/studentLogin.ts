@@ -1,7 +1,7 @@
 import { menuDriven, studentInstance } from "../app"
-import { Student } from "../app.class.components/app.student.class"
-import { Teacher } from "../app.class.components/app.teacher.class"
-import { questionAsync } from "./app.staffRegister"
+import { Student } from "../factoryComponents/student"
+import { Teacher } from '../factoryComponents/teacher'
+import { questionAsync } from "./staffRegister"
 
 export const studentLogin = async () => {
     Teacher.isActive = false;

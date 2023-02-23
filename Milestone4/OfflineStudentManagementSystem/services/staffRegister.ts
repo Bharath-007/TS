@@ -1,7 +1,7 @@
 import { readLine, teacherInstance } from '../app'
-import { CreatorFactory } from '../app.factory.components/app.creator.factory'
-import { ITeacher } from '../app.interface.components/app.teacher.interface'
-import { Teacher } from '../app.class.components/app.teacher.class'
+import { CreatorFactory } from '../factoryComponents/creatorFactory'
+import { ITeacher } from '../interfaces/teacherInterface'
+import { Teacher } from '../factoryComponents/teacher'
 import { menuDriven } from '../app'
 
 export const questionAsync = (prompt: string): Promise<string> => {

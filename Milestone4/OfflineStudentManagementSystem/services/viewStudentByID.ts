@@ -1,6 +1,6 @@
 import { menuDriven } from '../app';
-import { Student } from '../app.class.components/app.student.class'
-import { questionAsync } from './app.staffRegister';
+import { Student } from '../factoryComponents/student'
+import { questionAsync } from './staffRegister';
 
 export const viewStudentByID = async () => {
     const getID = Number(await questionAsync('Enter Student ID : '))
