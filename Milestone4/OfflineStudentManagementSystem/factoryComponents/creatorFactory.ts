@@ -8,9 +8,9 @@ export class CreatorFactory {
         const userName = <string>user;
         switch (userName.toLowerCase()) {
             case 'student':
-                return new Student();
+                return Student.getInstance();
             case 'teacher':
-                return new Teacher();
+                return Teacher.getInstance();
             default:
                 throw new Error('Invalid UserName');
         }

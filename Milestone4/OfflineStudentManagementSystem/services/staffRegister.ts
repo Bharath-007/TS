@@ -1,8 +1,7 @@
-import { readLine, teacherInstance } from '../app'
-import { CreatorFactory } from '../factoryComponents/creatorFactory'
-import { ITeacher } from '../interfaces/teacherInterface'
+import { menuDriven1, readLine, teacherInstance } from '../app'
+import { instantTeacher, instantStudent } from '../app'
 import { Teacher } from '../factoryComponents/teacher'
-import { menuDriven } from '../app'
+import { menuDriven,showMenu2} from '../app'
 
 export const questionAsync = (prompt: string): Promise<string> => {
     return new Promise((res) => {
@@ -18,23 +17,28 @@ export const staffLogin = async () => {
         const name = await questionAsync('Enter staff name: ');
         const password = await questionAsync('Enter staff password: ');
         validateStaffLogin(name, password)
-        Teacher.isActive = true;
-        return menuDriven();
+        Teacher.instanceOfTeacher.isActive = true;
+        return menuDriven1();
     } catch (err) {
-        console.log(`${err}`);
+        console.log(`Login error - ${err}`);
+
     }
 }
 
 export const validateStaffLogin = (userName: string, password: string) => {
-    if (userName !== Teacher.teacher['name'] && password !== Teacher.teacher['password']) {
+    if (userName !== instantTeacher.teacher.name && password !== instantTeacher.teacher.password) {
+        // console.log(instantTeacher.teacher['password']);
         console.log('Invalid Staff login');
         menuDriven();
     }
-    else if (userName === Teacher.teacher['name'] && password !== Teacher.teacher['password']) {
+    else if (userName === instantTeacher.teacher.name && password !== instantTeacher.teacher.password) {
         console.log('Invalid password');
         staffLogin();
     }
     else {
         console.log('-----Staff Login Successfull-----');
+        showMenu2();
     }
 }
+
+

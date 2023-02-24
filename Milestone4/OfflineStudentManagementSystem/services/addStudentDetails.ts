@@ -1,12 +1,12 @@
 import { Student } from '../factoryComponents/student';
 import { questionAsync } from './staffRegister'
-import { menuDriven } from '../app';
-import { Teacher } from '../app.class.components/app.teacher.class';
+import { instantStudent, menuDriven,menuDriven1 } from '../app';
+import { Teacher } from '../factoryComponents/teacher';
 
 
 export const addStudentDetails = async () => {
     try {
-        if (Teacher.isActive) {
+        if (Teacher.instanceOfTeacher.isActive) {
             const getRollNo = Number(await questionAsync('Enter Roll No to add details : '))
             const isExist = checkIsExist(getRollNo);
             if (await isExist) {
@@ -22,12 +22,12 @@ export const addStudentDetails = async () => {
                     total,
                     grade
                 }
-                Student.studentDetails(studentDetails, getRollNo);
+                instantStudent.updateStudentSetter(studentDetails, getRollNo);
                 console.log(`\tDetails Added Succesfully\t`);
-                return menuDriven();
+                return menuDriven1();
             } else {
                 console.log('Roll Number not Found');
-                return menuDriven();
+                return menuDriven1();
             }
         } else {
             console.log(`\tOnly Staff can Add the details\t`);
@@ -53,7 +53,7 @@ export const calculateGrade = (total: number): string => {
 }
 
 export const checkIsExist = async (rollNo: number) => {
-    return Student.students.some((studentRollNo) => {
+    return instantStudent.students.some((studentRollNo) => {
         return studentRollNo.rollNo === rollNo;
     })
 }

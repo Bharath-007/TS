@@ -1,23 +1,17 @@
-import { menuDriven } from "../app";
-import { Student } from "../factoryComponents/student"
-import { Teacher } from "../app.class.components/app.teacher.class";
+import { instantStudent, menuDriven1 } from "../app";
+import { Teacher } from "../factoryComponents/teacher";
 import { questionAsync } from "./staffRegister"
 
 
 export const deleteByID = async () => {
-    if (Teacher.isActive) {
+    try{
         const getID = Number(await questionAsync('Enter student ID to delete : '))
-        
-        Student.students = Student.students.filter((student) => {
+        instantStudent.students = instantStudent.students.filter((student) => {
             return student.id !== getID;
         });
-
-        // console.log(Student.students);
-        
         console.log('deleted successfully');
-        menuDriven();
-    } else {
-        console.log('Only staff can delete the student');
-        return menuDriven();
+        menuDriven1();
+    }catch(e){
+        console.log(e);
     }
 }

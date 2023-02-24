@@ -1,6 +1,7 @@
 import { menuDriven } from "../app";
 import { Student } from "../factoryComponents/student";
 import { questionAsync } from "./staffRegister";
+import { instantTeacher, instantStudent } from '../app'
 
 export const addStudent = async () => {
     try {
@@ -8,7 +9,7 @@ export const addStudent = async () => {
         const id = Number(await questionAsync('Enter Student ID : '));
         const name = await questionAsync('Enter Student Name : ');
         const rollNo = Number(await questionAsync('Enter Studdent Roll No : '));
-        const dob = await questionAsync('Enter Student DOB : ');
+        const dob = await questionAsync('Enter Student DOB(MM/dd/YYYY) : ');
         validateuserDetails(id,name,rollNo,dob);
         const student = {
             type,
@@ -17,7 +18,7 @@ export const addStudent = async () => {
             rollNo,
             dob,
         }
-        Student.student(student)
+        instantStudent.studentSetter(student)
         return menuDriven();
     } catch (err) {
         console.log(err);

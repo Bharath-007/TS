@@ -2,8 +2,19 @@ import { IStudent } from '../interfaces/studentInterface'
 import { IStudentDetails } from '../interfaces/studentDetailsInterface';
 
 export class Student {
-    static students: IStudent[] = [];
-    static student(staff: IStudent) {
+    students: IStudent[] = [];
+    public static instanceOfStudent: Student;
+
+    private constructor() { }
+
+    public static getInstance(): Student {
+        if (!Student.instanceOfStudent) {
+            Student.instanceOfStudent = new Student();
+        }
+        return Student.instanceOfStudent;
+    }
+
+    public studentSetter(staff: IStudent) {
         return this.students.push({
             name: staff.name,
             id: staff.id,
@@ -13,20 +24,20 @@ export class Student {
             // type:'student'
         });
     }
-    static studentDetails(details: IStudentDetails, rollNo: number) {
+    public studentDetails(details: IStudentDetails, rollNo: number) {
         this.students.filter((student) => {
             if (student.rollNo === rollNo)
                 student.detail = details;
         })
     }
-    static updateStudent(updateDetails: IStudentDetails, rollNo: number) {
+    public updateStudentSetter(updateDetails: IStudentDetails, rollNo: number) {
         this.students.map((student) => {
             if (student.rollNo === rollNo)
                 student.detail = updateDetails
         })
     }
     getData() {
-        Student.students.forEach((student) => {
+        this.students.forEach((student) => {
             console.log(`\tStudent Name : ${student.name.toUpperCase()}\tRoll No : ${student.rollNo}`);
         });
     }
