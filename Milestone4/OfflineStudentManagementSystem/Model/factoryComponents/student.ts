@@ -5,7 +5,7 @@ export class Student {
   students: IStudent[] = [];
   public static instanceOfStudent: Student;
 
-  private constructor() {}
+  private constructor() { }
 
   public static getInstance(): Student {
     if (!Student.instanceOfStudent) {
@@ -37,10 +37,16 @@ export class Student {
   getData() {
     this.students.forEach((student) => {
       console.log(
-        `\tStudent Name : ${student.name.toUpperCase()}\tRoll No : ${
-          student.rollNo
+        `\tStudent Name : ${student.name.toUpperCase()}\tRoll No : ${student.rollNo
         }`
       );
     });
+  }
+  isEmpty(): boolean {
+    if (this.students.length === 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 }
