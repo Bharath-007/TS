@@ -1,4 +1,4 @@
-export enum User{
-    student,
-    teacher
+export enum User {
+  student,
+  teacher,
 }
