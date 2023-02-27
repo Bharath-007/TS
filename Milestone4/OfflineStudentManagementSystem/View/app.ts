@@ -1,30 +1,29 @@
-import { CreatorFactory } from '../Model/factoryComponents/creatorFactory';
+import { CreatorFactory } from '../Control/factoryComponents/creatorFactory';
 import { studentLogin } from '../Control/services/studentServices';
 import {readLine} from '../Control/util/utils'
 import { staffLogin, addStudent, addStudentDetails, viewStudentByID, deleteByID, updateStudentDetails } from '../Control/services/staffServices';
-import { Teacher } from '../Model/factoryComponents/teacher';
-import { Student } from '../Model/factoryComponents/student';
+import { Teacher } from '../Control/factoryComponents/teacher';
+import { Student } from '../Control/factoryComponents/student';
 
 export const teacherInstance = CreatorFactory.createUser('teacher');
 export const studentInstance = CreatorFactory.createUser('student');
-export const instantStudent = Student.getInstance(); //singleton object for student
-export const instantTeacher = Teacher.getInstance(); //singleton object for teacher
-
+export const studentListener = Student.getInstance(); //singleton object for student
+export const teacherListener = Teacher.getInstance(); //singleton object for teacher
 /*
-const stu2 = instantStudent.studentSetter({
+const stu2 = studentListener.studentSetter({
   name: 'Bharath',
   id: 123,
   rollNo: 23001,
   dob: '23/02/2002',
 });
 
-const stu1 = instantStudent.studentSetter({
+const stu1 = studentListener.studentSetter({
   name: 'Arun',
   id: 124,
   rollNo: 23000,
   dob: '02/02/2002',
 });
-const stu3 = instantStudent.studentSetter({
+const stu3 = studentListener.studentSetter({
   name: 'Akash',
   id: 125,
   rollNo: 23002,
@@ -90,7 +89,7 @@ export const staffMenu = () => {
         staffMenu();
         break;
       case 5:
-        if (!instantStudent.isEmpty()) {
+        if (!studentListener.isEmpty()) {
           console.log('Student Database is Empty');
         } else {
           studentInstance.getData();
@@ -98,7 +97,7 @@ export const staffMenu = () => {
         staffMenu();
         break;
       case 6:
-        if (!instantStudent.isEmpty()) {
+        if (!studentListener.isEmpty()) {
           console.log('Student Database is Empty Add students to add details');
         } else {
           addStudentDetails();
@@ -106,7 +105,7 @@ export const staffMenu = () => {
         staffMenu();
         break;
       case 7:
-        if (!instantStudent.isEmpty()) {
+        if (!studentListener.isEmpty()) {
           console.log('Student Database is Empty Add students to add details');
         } else {
           updateStudentDetails()
@@ -114,7 +113,7 @@ export const staffMenu = () => {
         staffMenu();
         break;
       case 8:
-        if (!instantStudent.isEmpty()) {
+        if (!studentListener.isEmpty()) {
           console.log('Student Database is Empty Add students to Delete');
         } else {
           deleteByID();
@@ -122,7 +121,7 @@ export const staffMenu = () => {
         staffMenu();
         break;
       case 9:
-        if (!instantStudent.isEmpty()) {
+        if (!studentListener.isEmpty()) {
           console.log('Student Database is Empty Add students to View');
         } else {
           viewStudentByID();

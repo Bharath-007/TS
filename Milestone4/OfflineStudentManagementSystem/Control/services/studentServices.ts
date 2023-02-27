@@ -1,7 +1,7 @@
-import { instantStudent,menu } from '../../View/app';
-import { Teacher } from '../../Model/factoryComponents/teacher';
-import { errorReport } from '../util/utils';
-import { questionAsync } from './staffServices';
+import { studentListener, menu } from '../../View/app';
+import { Teacher } from '../factoryComponents/teacher';
+import { errorReport, validateRollNo } from '../util/utils';
+import { questionAsync } from '../util/utils';
 
 export const studentLogin = async () => {
   try {
@@ -34,12 +34,3 @@ export const studentLogin = async () => {
   }
 }
 
-const validateRollNo = (rollNo: number, dob: string): any => {
-  return instantStudent.students.find((student) => {
-    if (student.rollNo === rollNo && student.dob === dob) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-};

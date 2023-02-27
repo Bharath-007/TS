@@ -1,15 +1,9 @@
-import { instantStudent, staffMenu} from '../../View/app';
-import { Teacher } from '../../Model/factoryComponents/teacher';
+import { studentListener, staffMenu } from '../../View/app';
+import { Teacher } from '../factoryComponents/teacher';
 import { menu, staffOperations } from '../../View/app';
-import { validateStaffLogin, checkIsExist, validateuserDetails, readLine , validateRollNo, errorReport } from '../util/utils'
+import * as util from 'util';
+import { validateStaffLogin, checkIsExist, validateuserDetails, readLine, questionAsync, errorReport } from '../util/utils'
 
-export const questionAsync = (prompt: string): Promise<string> => {
-  return new Promise((res) => {
-    readLine.question(prompt, (answer: string) => {
-      res(answer);
-    });
-  });
-};
 
 export const staffLogin = async () => {
   try {
@@ -17,13 +11,12 @@ export const staffLogin = async () => {
     const name = await questionAsync('Enter staff name: ');
     const password = await questionAsync('Enter staff password: ');
     validateStaffLogin(name, password);
-    Teacher.instanceOfTeacher.isActive = true;
     if (Teacher.instanceOfTeacher.isActive) {
       staffOperations();
+      staffMenu();
     } else {
       throw new Error('Not logged In')
     }
-    return staffMenu();
   } catch (err) {
     let message;
     if (err instanceof Error) {
@@ -31,7 +24,8 @@ export const staffLogin = async () => {
     } else {
       message = String(message);
     }
-    reportError({ message })
+    errorReport({ message })
+    staffLogin();
   }
 };
 
@@ -41,21 +35,21 @@ export const addStudentDetails = async () => {
       const getRollNo = Number(
         await questionAsync('Enter Roll No to add details : ')
       );
-      const isExist = checkIsExist(getRollNo);
-      if (await isExist) {
-        const mark1 = Number(await questionAsync('Enter mark 1 : '));
-        const mark2 = Number(await questionAsync('Enter mark 2 : '));
-        const mark3 = Number(await questionAsync('Enter mark 3 : '));
-        const total = mark1 + mark2 + mark3;
+      const isExist = await checkIsExist(getRollNo);
+      if (isExist) {
+        const socialScience = Number(await questionAsync('Enter mark 1 : '));
+        const evs = Number(await questionAsync('Enter mark 2 : '));
+        const mathematics = Number(await questionAsync('Enter mark 3 : '));
+        const total = socialScience + evs + mathematics;
         const grade: string = calculateGrade(total);
         const studentDetails = {
-          mark1,
-          mark2,
-          mark3,
+          socialScience,
+          mathematics,
+          evs,
           total,
           grade,
         };
-        instantStudent.updateStudentSetter(studentDetails, getRollNo);
+        studentListener.updateStudentSetter(studentDetails, getRollNo);
         console.log(`\tDetails Added Succesfully\t`);
         return staffMenu();
       } else {
@@ -92,19 +86,19 @@ export const updateStudentDetails = async () => {
     );
     const isExist = checkIsExist(getRollNo);
     if (await isExist) {
-      const mark1 = Number(await questionAsync('Enter mark 1 : '));
-      const mark2 = Number(await questionAsync('Enter mark 2 : '));
-      const mark3 = Number(await questionAsync('Enter mark 3 : '));
-      const total = mark1 + mark2 + mark3;
+      const socialScience = Number(await questionAsync('Enter SocialScience mark : '));
+      const mathematics = Number(await questionAsync('Enter mark : '));
+      const evs = Number(await questionAsync('Enter Mathematics mark : '));
+      const total = mathematics + socialScience + evs;
       const grade: string = calculateGrade(total);
       const studentDetails = {
-        mark1,
-        mark2,
-        mark3,
+        socialScience,
+        mathematics,
+        evs,
         total,
         grade,
       };
-      instantStudent.updateStudentSetter(studentDetails, getRollNo);
+      studentListener.updateStudentSetter(studentDetails, getRollNo);
       console.log('Updated successfully');
       return staffMenu();
     } else {
@@ -131,7 +125,7 @@ export const addStudent = async () => {
         rollNo,
         dob,
       };
-      instantStudent.studentSetter(student);
+      studentListener.studentSetter(student);
       staffMenu()
     } else {
       throw new Error('Invalid Student Data');
@@ -151,7 +145,7 @@ export const addStudent = async () => {
 
 export const viewStudentByID = async () => {
   const getID = Number(await questionAsync('Enter Student ID : '));
-  const result = instantStudent.students.filter((data) => data.id === getID);
+  const result = studentListener.students.filter((data) => data.id === getID);
   if (result.length === 0) {
     console.log('No user found with the ID');
   } else {
@@ -173,12 +167,18 @@ export const viewStudentByID = async () => {
 export const deleteByID = async () => {
   try {
     const getID = Number(await questionAsync('Enter student ID to delete : '));
-    instantStudent.students = instantStudent.students.filter((student) => {
+    studentListener.students = studentListener.students.filter((student) => {
       return student.id !== getID;
     });
-    console.log('deleted successfully');
-    staffMenu();
+    throw new Error('deleted successfully');
   } catch (e) {
-    console.log(e);
+    let message;
+    if (e instanceof Error) {
+      message = e.message;
+    } else {
+      message = String(e);
+    }
+    errorReport({ message })
+    staffMenu();
   }
 };

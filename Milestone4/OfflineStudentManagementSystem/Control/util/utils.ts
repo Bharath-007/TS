@@ -1,12 +1,29 @@
-import { instantTeacher, instantStudent } from '../../View/app';
-import { menu, staffMenu, staffOperations } from '../../View/app';
+import { teacherListener, studentListener, staffMenu } from '../../View/app';
 import { addStudent, staffLogin, } from '../services/staffServices';
 import * as readline from 'readline';
+import * as util from 'util';
+import { Teacher } from '../factoryComponents/teacher';
+import { stringify } from 'querystring';
 
 export const readLine = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
+
+// export const questionAsync = (prompt: string): Promise<string> => {
+//     return new Promise((res) => {
+//         readLine.question(prompt, (answer: string) => {
+//             res(answer);
+//         });
+//     });
+// };
+
+export const questionAsync = async (prompt: string) => {
+    const answer = await new Promise<string>(res => {
+        readLine.question(prompt, (data: string) => res(data));
+    });
+    return answer;
+}
 
 export const errorReport = ({ message }: { message: string }) => {
     console.log(message);
@@ -22,7 +39,7 @@ export const isValideDate = (dob: string): string => {
 };
 
 export const validateRollNo = (rollNo: number, dob: string): any => {
-    return instantStudent.students.find((student) => {
+    return studentListener.students.find((student) => {
         if (student.rollNo === rollNo && student.dob === dob) {
             return true;
         } else {
@@ -32,7 +49,7 @@ export const validateRollNo = (rollNo: number, dob: string): any => {
 };
 
 export const checkIsExist = async (rollNo: number) => {
-    return instantStudent.students.some((studentRollNo) => {
+    return studentListener.students.some((studentRollNo) => {
         return studentRollNo.rollNo === rollNo;
     });
 };
@@ -40,17 +57,19 @@ export const checkIsExist = async (rollNo: number) => {
 export const validateStaffLogin = (userName: string, password: string) => {
     try {
         if (
-            userName !== instantTeacher.teacher.name &&
-            password !== instantTeacher.teacher.password
+            userName !== teacherListener.teacher.name &&
+            password !== teacherListener.teacher.password
         ) {
             throw new Error('Invalid Staff login');
         } else if (
-            userName === instantTeacher.teacher.name &&
-            password !== instantTeacher.teacher.password
+            userName === teacherListener.teacher.name &&
+            password !== teacherListener.teacher.password
         ) {
+            Teacher.instanceOfTeacher.isActive = false;
             throw new Error('Invalid password');
         } else {
             console.log('-----Staff Login Successfull-----');
+            Teacher.instanceOfTeacher.isActive = true;
             // staffOperations();
         }
     } catch (err) {

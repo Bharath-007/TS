@@ -1,7 +1,7 @@
 export interface IStudentDetails {
-  mark1: number;
-  mark2: number;
-  mark3: number;
+  socialScience: number;
+  evs: number;
+  mathematics: number;
   total: number;
   grade: string;
 }

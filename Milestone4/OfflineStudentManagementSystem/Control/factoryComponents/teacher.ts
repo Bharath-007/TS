@@ -1,4 +1,4 @@
-import { ITeacher } from '../interfaces/teacherInterface';
+import { ITeacher } from '../../Model/interfaces/teacher.interface';
 
 export class Teacher {
   isActive: boolean = false;

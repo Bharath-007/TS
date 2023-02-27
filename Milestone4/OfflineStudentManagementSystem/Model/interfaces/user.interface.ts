@@ -1,4 +1,4 @@
-import { User } from '../enum/enumUser';
+import { User } from '../enum/user.enum';
 
 export interface IUser {
   id?: number;
