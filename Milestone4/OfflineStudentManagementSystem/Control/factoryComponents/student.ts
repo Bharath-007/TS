@@ -1,5 +1,5 @@
 import { IStudent } from '../../Model/interfaces/student.interface';
-import { IStudentDetails } from '../../Model/interfaces/studentDetails.Interface';
+import { IStudentDetails } from '../../Model/interfaces/studentDetails.interface';
 
 export class Student {
   students: IStudent[] = [];

@@ -19,9 +19,7 @@ export const readLine = readline.createInterface({
 // };
 
 export const questionAsync = async (prompt: string) => {
-    const answer = await new Promise<string>(res => {
-        readLine.question(prompt, (data: string) => res(data));
-    });
+    const answer = await new Promise<string>(res => readLine.question(prompt, res))
     return answer;
 }
 
@@ -92,11 +90,11 @@ export const validateuserDetails = (id: number, name: string, rollNo: number, do
         } else if (!name.match(nameRegex)) {
             throw new Error('Student Name should contain atleat 2 characters');
         } else if (isNaN(rollNo)) {
-            throw new Error(`Roll Number must be a number`);
+            throw new Error('Roll Number must be a number');
         } else if (isValideDate(dob) !== 'valid') {
             throw new Error('date not in correct format of MM/dd/YYYY');
         } else {
-            console.log(`Student Added Successfully`);
+            console.log('Student Added Successfully');
         }
         return true;
     } catch (err) {
@@ -110,3 +108,7 @@ export const validateuserDetails = (id: number, name: string, rollNo: number, do
         addStudent();
     }
 };
+
+function getline() {
+    throw new Error('Function not implemented.');
+}
