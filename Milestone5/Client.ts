@@ -1,7 +1,11 @@
 import { LocalTax, InterStateTax } from './GST'
 
-const localTax = new LocalTax(1000);
-console.log(`LOCAL GST\nSGST - ${localTax.calculatedGST()} CGST - ${localTax.calculatedGST()}\n`);
+const price = 1000;
+
+const localTax = new LocalTax(price);
+const localGST = localTax.calculateGST(price)
+console.log(`LOCAL GST\nSGST - ${(localGST.amount)} CGST - ${(localGST.amount)}\n`);
 
 const interStateTax = new InterStateTax(1000);
-console.log(`INTERSTATE GST\nIGST - ${interStateTax.calculatedGST()}\n`);
+const interStateGST = interStateTax.calculateGST(price);
+console.log(`INTERSTATE GST\nIGST - ${interStateGST.amount}\n`);
