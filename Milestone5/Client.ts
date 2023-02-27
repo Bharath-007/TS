@@ -1,9 +1,7 @@
-import { InterStateTax, LocalTax } from "./creator";
-import { TAX } from './GST'
+import { LocalTax, InterStateTax } from './GST'
 
-const clientCode = (arg: TAX) => {
-    console.log(arg.calculatedGST());
-}
+const localTax = new LocalTax(1000);
+console.log(`LOCAL GST\nSGST - ${localTax.calculatedGST()} CGST - ${localTax.calculatedGST()}\n`);
 
-clientCode(new LocalTax(1000));
-clientCode(new InterStateTax(1000));
+const interStateTax = new InterStateTax(1000);
+console.log(`INTERSTATE GST\nIGST - ${interStateTax.calculatedGST()}\n`);

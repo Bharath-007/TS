@@ -1,6 +1,5 @@
 export interface IGST {
-    GSTRate: number;
-    calculate(price:number): string;
+    amount: number;
 }
 
 export abstract class TAX {
@@ -11,39 +10,39 @@ export abstract class TAX {
         this.price = price;
     }
 
-    getter(price: number) {
-        return price;
+    getter() {
+        return this.price;
     }
 
     public abstract calculateGST(price: number): IGST;
 
     public calculatedGST(): string {
         const GSTRate = this.calculateGST(this.price);
-        return `${GSTRate.calculate(this.price)}`
+        return `${(GSTRate.amount).toFixed(2)}`
     }
-
-}   
-
-export class LocalGSTRate implements IGST {
-
-    GSTRate: number = 5;
-
-    public split(amount:number){
-        return (amount/2).toFixed(3);
-    }
-
-    public calculate(originalPrice:number): string {
-        const GST_Amount = (originalPrice -(originalPrice*(100/(100+this.GSTRate))))
-        return `\nPre-GST AMOUNT - ${(originalPrice-GST_Amount).toFixed(3)} CGST - ${this.split(GST_Amount)} SGST - ${this.split(GST_Amount)}`;
-    }
-
 }
 
-export class InterstateGSTRate implements IGST {
-    
+export class LocalTax extends TAX {
     GSTRate: number = 5;
-    public calculate(Price:number): string {
-        const GST_Amount = Price -(Price*(100/(100+this.GSTRate)))
-        return `\nPre-GST AMOUNT - ${(Price-GST_Amount).toFixed(3)} IGST - ${(GST_Amount).toFixed(3)}\n`;
+    constructor(price: number) {
+        super(price);
+    }
+    public split(amount: number) {
+        return (amount/2).toFixed(2);
+    }
+    public calculateGST(price: number): IGST {
+        const GST_Amount = (price - (price * (100 / (100 + this.GSTRate))))
+        return { amount: Number(this.split(GST_Amount)) };
+    }
+}
+
+export class InterStateTax extends TAX {
+    GSTRate: number = 5;
+    constructor(price: number) {
+        super(price);
+    }
+    public calculateGST(price: number): IGST {
+        const GST_Amount = price - (price * (100 / (100 + this.GSTRate)))
+        return { amount: GST_Amount };
     }
 }
